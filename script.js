@@ -1,6 +1,5 @@
 $(document).ready(function() {
   $(".search").click(function() {
-    var coreLink = "https://www.youtube.com/embed/"
     var userLink = $(".video-link").val();
     var link = prepareLink(userLink);
     $(".video").attr("src", link).show();
@@ -8,9 +7,10 @@ $(document).ready(function() {
 });
 
 function prepareLink(userLink) {
+    var coreLink = "https://www.youtube.com/embed/"
+    var params = "?autohide=1&iv_load_policy=3&loop=1&rel=0&playlist=";
     var videoID = "";
     var link = "";
-    var params = "?autohide=1&iv_load_policy=3&loop=1&rel=0&playlist=";
 
     var result = userLink.search("watch");    
     if (result > 0) {
