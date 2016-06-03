@@ -1,8 +1,15 @@
 $(document).ready(function() {
   $(".search").click(function() {
+    $(".error").hide();
     var userLink = $(".video-link").val();
     var link = prepareLink(userLink);
-    $(".video").attr("src", link).show();
+    if (!link) {
+      $(".error").show();
+      $(".video").hide();
+    }
+    else {
+      $(".video").attr("src", link).show();
+    }
   });
 });
 
@@ -23,6 +30,24 @@ function prepareLink(userLink) {
       link = coreLink.concat(userLink);
     }
 
+    result = checkLink(videoID);
+    if (!result) {
+      return false;
+    }
     link = link.concat(params, videoID);
     return link;
+}
+
+function checkLink(videoID) {
+  link = "https://www.googleapis.com/youtube/v3/videos?part=id";
+  apiKey = "AIzaSyB_8h_wB5FfhMaEh3MqZraRawrwgk1DTgc__"
+  params = "&id=".concat(videoID, "&key=", apiKey);
+  link = link.concat(params);
+  $.get(link, function(data, status) {})
+  .done(function() {
+    return true;
+  })
+  .fail(function() {
+    return false;
+  });
 }
