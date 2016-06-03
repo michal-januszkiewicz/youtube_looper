@@ -3,7 +3,7 @@ $(document).ready(function() {
     $(".error").hide();
     var userLink = $(".video-link").val();
     var link = prepareLink(userLink);
-    if (!link) {
+    if (link === false) {
       $(".error").show();
       $(".video").hide();
     }
@@ -31,7 +31,7 @@ function prepareLink(userLink) {
     }
 
     result = checkLink(videoID);
-    if (!result) {
+    if (result === false) {
       return false;
     }
     link = link.concat(params, videoID);
@@ -40,14 +40,20 @@ function prepareLink(userLink) {
 
 function checkLink(videoID) {
   link = "https://www.googleapis.com/youtube/v3/videos?part=id";
-  apiKey = "AIzaSyB_8h_wB5FfhMaEh3MqZraRawrwgk1DTgc__"
+  apiKey = "AIzaSyB_8h_wB5FfhMaEh3MqZraRawrwgk1DTgc"
   params = "&id=".concat(videoID, "&key=", apiKey);
   link = link.concat(params);
-  $.get(link, function(data, status) {})
-  .done(function() {
-    return true;
+  var result = false;
+  $.ajax({
+    type: "GET",
+    url: link,
+    success: function(data, status) {
+      result = data.items.length > 0;
+    },
+    async: false
   })
   .fail(function() {
-    return false;
-  });
+    result = false;
+  })
+  return result;
 }
