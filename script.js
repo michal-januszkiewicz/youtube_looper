@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $(".play").click(function() {
+  $(".search").click(function() {
     var coreLink = "https://www.youtube.com/embed/"
     var userLink = $(".video-link").val();
     var link = "";
