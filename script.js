@@ -2,6 +2,12 @@ $(document).ready(function() {
   $(".search").click(function() {
     var coreLink = "https://www.youtube.com/embed/"
     var userLink = $(".video-link").val();
+    var link = prepareLink(userLink);
+    $(".video").attr("src", link);
+  });
+});
+
+function prepareLink(userLink) {
     var videoID = "";
     var link = "";
     var params = "?autohide=1&iv_load_policy=3&loop=1&rel=0&playlist=";
@@ -18,6 +24,5 @@ $(document).ready(function() {
     }
 
     link = link.concat(params, videoID);
-    $(".video").attr("src", link);
-  });
-});
+    return link;
+}
