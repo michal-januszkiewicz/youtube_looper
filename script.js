@@ -3,7 +3,7 @@ $(document).ready(function() {
     var coreLink = "https://www.youtube.com/embed/"
     var userLink = $(".video-link").val();
     var link = prepareLink(userLink);
-    $(".video").attr("src", link);
+    $(".video").attr("src", link).show();
   });
 });
 
