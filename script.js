@@ -16,26 +16,27 @@ $(document).ready(function() {
 function prepareLink(userLink) {
     var coreLink = "https://www.youtube.com/embed/"
     var params = "?autohide=1&iv_load_policy=3&loop=1&rel=0&playlist=";
-    var videoID = "";
     var link = "";
-
-    var result = userLink.search("watch");    
-    if (result > 0) {
-      var index = result + "watch?v=".length;
-      videoID = userLink.substring(index);
-      link = userLink.replace("watch?v=", "embed/");
-    }
-    else {
-      videoID = userLink;
-      link = coreLink.concat(userLink);
-    }
+    var videoID = getVideoID(userLink);
 
     result = checkLink(videoID);
     if (result === false) {
       return false;
     }
+
+    link = coreLink.concat(videoID);
     link = link.concat(params, videoID);
     return link;
+}
+
+function getVideoID(userLink) {
+    var videoID = userLink;
+    var result = userLink.search("watch");    
+    if (result > 0) {
+      var index = result + "watch?v=".length;
+      videoID = userLink.substring(index);
+    }
+    return videoID;
 }
 
 function checkLink(videoID) {
