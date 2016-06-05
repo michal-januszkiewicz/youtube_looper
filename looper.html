@@ -12,30 +12,38 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
 </head>
-
 <body>
   <div class="container">
-    <div class="row">
-      <h1>Youtube Looper</h1>
-    </div>
-    <div class="row">
-      <p>Enter a youtube video link or a video id.</p>
-      <form class="form-horizontal" role="form">
-        <div class="col-md-6">
-          <input name="video" class="form-control video-link" type="text"/>
-        </div>
-        <div class="btn btn-primary search">Search</div>
-      </form>
-    </div>
-    <div class="row">
-      <div class="error" style="display: none">
-        <p>This video does not exist.</p>
+    <div class="row" style="margin-bottom: 20px">
+      <div class="title col-md-6 col-md-offset-3">
+        <h1>Youtube Looper</h1>
       </div>
-      <iframe width="840" height="480" class="video" style="display: none"
-        allowfullscreen="allowfullscreen" src="">
-      </iframe>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <p>Enter a youtube video link or a video id.</p>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+      <div class="col-md-6 col-md-offset-3">
+        <input name="video" class="form-control video-link" type="text"/>
+      </div>
+        <div class="btn btn-primary search">Search</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="error" style="display: none; color: red">
+          <p>This video does not exist.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <iframe width="640" height="390" class="video" style="display: none"
+          allowfullscreen="allowfullscreen" src="">
+        </iframe>
+      </div>
     </div>
   </div>
-
 </body>
 </html>
