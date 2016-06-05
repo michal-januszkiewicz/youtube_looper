@@ -2,31 +2,42 @@ $(document).ready(function() {
   $(".search").click(function() {
     $(".error").hide();
     var userLink = $(".video-link").val();
-    var link = prepareLink(userLink);
-    if (link === false) {
+    var videoID = getVideoID(userLink);
+    result = checkLink(videoID);
+    if (result === false) {
       $(".error").show();
       $(".video").hide();
     }
     else {
+      var coreLink = "https://www.youtube.com/embed/"
+      var params = {
+        autohide       : 1,
+        iv_load_policy : 3,
+        loop           : 1,
+        rel            : 0,
+        playlist       : videoID,
+      }
+      var link = prepareLink(coreLink, videoID, params);
       $(".video").attr("src", link).show();
     }
   });
 });
 
-function prepareLink(userLink) {
-    var coreLink = "https://www.youtube.com/embed/"
-    var params = "?autohide=1&iv_load_policy=3&loop=1&rel=0&playlist=";
-    var link = "";
-    var videoID = getVideoID(userLink);
+function prepareLink(coreLink, videoID, params) {
+  var link = coreLink.concat(videoID);
+  params = stringifyParams(params);
+  link = link.concat(params);
+  return link;
+}
 
-    result = checkLink(videoID);
-    if (result === false) {
-      return false;
-    }
-
-    link = coreLink.concat(videoID);
-    link = link.concat(params, videoID);
-    return link;
+function stringifyParams(params) {
+  var stringifiedParams = "?";
+  for (var param in params) {
+    stringifiedParams = stringifiedParams.concat(param, "=", params[param], "&");
+  }
+  // Chop off last '&' from the params.
+  stringifiedParams = stringifiedParams.slice(0, -1);
+  return stringifiedParams;
 }
 
 function getVideoID(userLink) {
@@ -40,10 +51,15 @@ function getVideoID(userLink) {
 }
 
 function checkLink(videoID) {
-  link = "https://www.googleapis.com/youtube/v3/videos?part=id";
-  apiKey = "AIzaSyB_8h_wB5FfhMaEh3MqZraRawrwgk1DTgc"
-  params = "&id=".concat(videoID, "&key=", apiKey);
-  link = link.concat(params);
+  var coreLink = "https://www.googleapis.com/youtube/v3/videos";
+  var params = {
+    part   : "id",
+    id     : videoID,
+    key    : "AIzaSyB_8h_wB5FfhMaEh3MqZraRawrwgk1DTgc",
+  }
+  params = stringifyParams(params);
+
+  var link = coreLink.concat(params);
   var result = false;
   $.ajax({
     type: "GET",
