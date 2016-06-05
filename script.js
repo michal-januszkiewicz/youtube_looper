@@ -89,6 +89,11 @@ function checkLink(videoID) {
   var link = coreLink.concat(params);
 
   // Check youtube API.
+  return makeAjaxRequest(link);
+}
+
+// Make an ajax request to youtube API.
+function makeAjaxRequest(link) {
   var result = false;
   $.ajax({
     type: "GET",
@@ -96,6 +101,7 @@ function checkLink(videoID) {
     success: function(data, status) {
       result = data.items.length > 0;
     },
+    // This option is deprecated but I didn't find a better solution.
     async: false
   })
   .fail(function() {
