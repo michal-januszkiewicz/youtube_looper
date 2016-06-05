@@ -62,6 +62,7 @@ function stringifyParams(params) {
   return stringifiedParams;
 }
 
+
 // Extract video id from the link.
 function getVideoID(userLink) {
     // If user entered just the id do nothing.
@@ -73,6 +74,7 @@ function getVideoID(userLink) {
     }
     return videoID;
 }
+
 
 // Check if video id is valid and the video exists  
 // using youtube API.
@@ -91,6 +93,7 @@ function checkLink(videoID) {
   // Check youtube API.
   return makeAjaxRequest(link);
 }
+
 
 // Make an ajax request to youtube API.
 function makeAjaxRequest(link) {
